@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="module" src="dashboard.js"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <!-- Header -->
+    <header class="bg-blue-600 text-white py-4 px-6 flex justify-between items-center">
+        <h1 class="text-2xl font-bold">Finance Dashboard</h1>
+        <button id="sign-out" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">
+            Logout
+        </button>
+    </header>
+
+    <!-- Main Content -->
+    <main class="p-6 space-y-8">
+
+        <!-- Summary Section -->
+        <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="bg-white shadow-md rounded-lg p-4 text-center">
+                <h3 class="text-lg font-semibold text-gray-600">Income</h3>
+                <p id="income-section" class="text-2xl font-bold text-green-500">₹0</p> <!-- Changed ID here -->
+            </div>
+            <div class="bg-white shadow-md rounded-lg p-4 text-center">
+                <h3 class="text-lg font-semibold text-gray-600">Expenses</h3>
+                <p id="expenses-section" class="text-2xl font-bold text-red-500">₹0</p> <!-- Changed ID here -->
+            </div>
+            <div class="bg-white shadow-md rounded-lg p-4 text-center">
+                <h3 class="text-lg font-semibold text-gray-600">Savings</h3>
+                <p id="savings-section" class="text-2xl font-bold text-blue-500">₹0</p> <!-- Changed ID here -->
+            </div>
+            <div class="bg-white shadow-md rounded-lg p-4 text-center">
+                <h3 class="text-lg font-semibold text-gray-600">Budget</h3>
+                <p id="budget-section" class="text-2xl font-bold text-purple-500">₹0</p> <!-- Changed ID here -->
+            </div>
+        </section>
+
+        <!-- Finance Management Form Section -->
+        <section class="bg-white shadow-md rounded-lg p-6">
+            <h2 class="text-lg font-semibold mb-4">Manage Finances</h2>
+            <form id="manage-finances-form">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label for="income" class="block text-sm font-medium text-gray-700">Income</label>
+                        <input type="number" id="income" class="mt-1 p-2 w-full border rounded" />
+                    </div>
+                    <div>
+                        <label for="expenses" class="block text-sm font-medium text-gray-700">Expenses</label>
+                        <input type="number" id="expenses" class="mt-1 p-2 w-full border rounded" />
+                    </div>
+                    <div>
+                        <label for="savings" class="block text-sm font-medium text-gray-700">Savings</label>
+                        <input type="number" id="savings" class="mt-1 p-2 w-full border rounded" />
+                    </div>
+                    <div>
+                        <label for="budget" class="block text-sm font-medium text-gray-700">Budget</label>
+                        <input type="number" id="budget" class="mt-1 p-2 w-full border rounded" />
+                    </div>
+                </div>
+                <button type="submit" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded">
+                    Save Finances
+                </button>
+            </form>
+        </section>
+
+        <!-- Charts Section -->
+        <section class="bg-white shadow-md rounded-lg p-6">
+            <h2 class="text-lg font-semibold mb-4">Spending Chart</h2>
+            <canvas id="spending-chart"></canvas>
+        </section>
+
+        <!-- Transactions Section -->
+        <section class="bg-white shadow-md rounded-lg p-6">
+            <h2 class="text-lg font-semibold mb-4">Recent Transactions</h2>
+            <ul id="transaction-list" class="divide-y divide-gray-200">
+                <li class="py-2 text-gray-500">No transactions yet.</li>
+            </ul>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white text-center py-4">
+        <p>&copy; 2024 FinTech Simplified</p>
+    </footer>
+
+    <!-- Firebase Scripts -->
+    <script type="module" src="dashboard.js"></script>
+</body>
+</html>
