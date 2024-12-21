@@ -106,8 +106,8 @@ document.getElementById("manage-finances-form").addEventListener("submit", async
   }
 });
 
-// Tax Calculation Function
-// Function to calculate tax based on income, deductions, and selected tax regime
+// Tax 
+
 function calculateTax() {
     let income = parseFloat(document.getElementById('total-income').value);
     let deductions = parseFloat(document.getElementById('deductions').value);
@@ -120,7 +120,7 @@ function calculateTax() {
     }
 
     if (taxRegime === 'old') {
-        // Old Tax Regime with deductions
+       
         let taxableIncome = income - deductions - 50000; // Standard Deduction ₹50,000
 
         if (taxableIncome <= 250000) {
@@ -133,7 +133,7 @@ function calculateTax() {
             tax = 250000 * 0.05 + 500000 * 0.2 + (taxableIncome - 1000000) * 0.3;
         }
     } else {
-        // New Tax Regime (No deductions)
+      
         if (income <= 250000) {
             tax = 0;
         } else if (income <= 500000) {
@@ -148,10 +148,10 @@ function calculateTax() {
     document.getElementById('tax-section').innerText = "Tax Payable: ₹" + tax.toFixed(2);
 }
 
-// Event listener for the tax calculation button
+
 document.getElementById('calculate-tax-button').addEventListener('click', calculateTax);
 
-// Function to handle form submission for managing finances (income, expenses, savings, budget)
+
 document.getElementById('manage-finances-form').addEventListener('submit', function(event) {
     event.preventDefault();
     let income = document.getElementById('income').value;
@@ -167,7 +167,7 @@ document.getElementById('manage-finances-form').addEventListener('submit', funct
    
 });
 
-// Event listener for adding bill reminders
+//bill reminders
 document.getElementById('add-bill-form').addEventListener('submit', function(event) {
     event.preventDefault();
     let billName = document.getElementById('bill-name').value;
@@ -182,14 +182,14 @@ document.getElementById('add-bill-form').addEventListener('submit', function(eve
     }
 });
 
-// Event listener for the "Logout" button
+
 document.getElementById('sign-out').addEventListener('click', function() {
-    // Handle sign-out logic (e.g., clearing session or redirecting to login page)
+   
     alert("Logged out successfully!");
 });
 
 
-// Check for Reminders
+
 async function checkForReminders(uid) {
   const today = new Date();
   const financesRef = collection(db, "users", uid, "finances");
@@ -219,12 +219,13 @@ document.getElementById("sign-out").addEventListener("click", async () => {
   }
 });
 
+// Razorpay
 document.getElementById("pay-tax").addEventListener("click", function () {
-    // Get tax amount from the tax section
+   
     const taxAmountText = document.getElementById("tax-section").textContent;
     const taxAmount = parseFloat(taxAmountText.replace(/[^\d.]/g, "")) || 0;
 
-    // If tax is 0, prevent payment
+  
     if (taxAmount <= 0) {
         alert("No tax payable. Please check your calculations.");
         return;
@@ -233,9 +234,9 @@ document.getElementById("pay-tax").addEventListener("click", function () {
     // Convert to paise (Razorpay requires amount in paise)
     const amountInPaise = taxAmount * 100;
 
-    // Razorpay options
+   
     var options = {
-        "key": "rzp_test_pJNGzxwmko1Sp3",  // Replace with your Razorpay API Key
+        "key": "rzp_test_pJNGzxwmko1Sp3",  
         "amount": amountInPaise,
         "currency": "INR",
         "name": "FinTech Simplified",
@@ -257,5 +258,66 @@ document.getElementById("pay-tax").addEventListener("click", function () {
     // Open Razorpay checkout
     var rzp1 = new Razorpay(options);
     rzp1.open();
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    const ctx = document.getElementById('yearly-tax-chart').getContext('2d');
+
+    // Example data for years, income, and tax paid
+    const yearlyData = {
+        years: ['2020', '2021', '2022', '2023'], // X-axis labels
+        income: [800000, 850000, 900000, 950000], // Income data
+        taxPaid: [40000, 45000, 50000, 55000], // Tax data
+    };
+
+    // Create the Yearly Tax Comparison Chart
+    new Chart(ctx, {
+        type: 'line', // Line chart
+        data: {
+            labels: yearlyData.years, // X-axis labels
+            datasets: [
+                {
+                    label: 'Income',
+                    data: yearlyData.income,
+                    borderColor: 'blue',
+                    borderWidth: 2,
+                    fill: false,
+                    tension: 0.2, 
+                },
+                {
+                    label: 'Tax Paid',
+                    data: yearlyData.taxPaid,
+                    borderColor: 'red',
+                    borderWidth: 2,
+                    fill: false,
+                    tension: 0.2,
+                },
+            ],
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top',
+                },
+            },
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Year',
+                    },
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Amount (₹)',
+                    },
+                    beginAtZero: true,
+                },
+            },
+        },
+    });
 });
 

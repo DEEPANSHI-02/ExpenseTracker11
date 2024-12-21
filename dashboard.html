@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.0/dist/tailwind.css" rel="stylesheet">
+    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script type="module" src="dashboard.js"></script>
- 
+
 </head>
+
 <body class="bg-gray-100 text-gray-800">
 
     <header class="bg-blue-600 text-white py-4 px-6 flex justify-between items-center">
@@ -85,7 +88,8 @@
                         <option value="new">New Tax Regime (No Deductions)</option>
                     </select>
                 </div>
-                <button id="calculate-tax-button" type="button" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded">Calculate Tax</button>
+                <button id="calculate-tax-button" type="button"
+                    class="mt-4 bg-blue-600 text-white px-4 py-2 rounded">Calculate Tax</button>
             </form>
             <p id="tax-section" class="mt-4 text-lg font-semibold text-gray-700">Tax Payable: ₹0 </p>
         </section>
@@ -93,7 +97,7 @@
         <button id="pay-tax" class="mt-4 bg-green-600 text-white px-4 py-2 rounded">
             Pay Tax
         </button>
-        
+
 
         <!-- Bill Reminder  -->
         <section class="bg-white shadow-md rounded-lg p-6">
@@ -126,6 +130,13 @@
             <canvas id="spending-chart"></canvas>
         </section>
 
+        <!-- Yearly Tax Comparison Chart Section -->
+        <section class="bg-white shadow-md rounded-lg p-6">
+            <h2 class="text-lg font-semibold mb-4">Yearly Tax Comparison</h2>
+            <canvas id="yearly-tax-chart"></canvas>
+        </section>
+
+
     </main>
 
 
@@ -135,6 +146,7 @@
 
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <script type="module" src="dashboard.js"></script>
-   
+
 </body>
+
 </html>
