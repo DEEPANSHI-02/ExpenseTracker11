@@ -4,44 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.0/dist/tailwind.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script type="module" src="dashboard.js"></script>
+    <style>
+        html {
+            -webkit-text-size-adjust: none;
+        }
+    </style>
 </head>
 <body class="bg-gray-100 text-gray-800">
 
-    <!-- Header -->
     <header class="bg-blue-600 text-white py-4 px-6 flex justify-between items-center">
         <h1 class="text-2xl font-bold">Finance Dashboard</h1>
-        <button id="sign-out" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">
-            Logout
-        </button>
+        <button id="sign-out" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Logout</button>
     </header>
 
-    <!-- Main Content -->
     <main class="p-6 space-y-8">
 
-        <!-- Summary Section -->
+        <!-- Overview Cards Section -->
         <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             <div class="bg-white shadow-md rounded-lg p-4 text-center">
                 <h3 class="text-lg font-semibold text-gray-600">Income</h3>
-                <p id="income-section" class="text-2xl font-bold text-green-500">₹0</p> <!-- Changed ID here -->
+                <p id="income-section" class="text-2xl font-bold text-green-500">₹0</p>
             </div>
             <div class="bg-white shadow-md rounded-lg p-4 text-center">
                 <h3 class="text-lg font-semibold text-gray-600">Expenses</h3>
-                <p id="expenses-section" class="text-2xl font-bold text-red-500">₹0</p> <!-- Changed ID here -->
+                <p id="expenses-section" class="text-2xl font-bold text-red-500">₹0</p>
             </div>
             <div class="bg-white shadow-md rounded-lg p-4 text-center">
                 <h3 class="text-lg font-semibold text-gray-600">Savings</h3>
-                <p id="savings-section" class="text-2xl font-bold text-blue-500">₹0</p> <!-- Changed ID here -->
+                <p id="savings-section" class="text-2xl font-bold text-blue-500">₹0</p>
             </div>
             <div class="bg-white shadow-md rounded-lg p-4 text-center">
                 <h3 class="text-lg font-semibold text-gray-600">Budget</h3>
-                <p id="budget-section" class="text-2xl font-bold text-purple-500">₹0</p> <!-- Changed ID here -->
+                <p id="budget-section" class="text-2xl font-bold text-purple-500">₹0</p>
             </div>
         </section>
 
-        <!-- Finance Management Form Section -->
+        <!-- Manage Finances Section -->
         <section class="bg-white shadow-md rounded-lg p-6">
             <h2 class="text-lg font-semibold mb-4">Manage Finances</h2>
             <form id="manage-finances-form">
@@ -63,33 +64,81 @@
                         <input type="number" id="budget" class="mt-1 p-2 w-full border rounded" />
                     </div>
                 </div>
-                <button type="submit" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded">
-                    Save Finances
-                </button>
+                <button type="submit" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded">Save Finances</button>
             </form>
         </section>
 
-        <!-- Charts Section -->
+        <!-- Tax Calculator Section -->
+        <section class="bg-white shadow-md rounded-lg p-6">
+            <h2 class="text-lg font-semibold mb-4">Tax Calculator</h2>
+            <form id="tax-calculator-form">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label for="total-income" class="block text-sm font-medium text-gray-700">Total Income</label>
+                        <input type="number" id="total-income" class="mt-1 p-2 w-full border rounded" />
+                    </div>
+                    <div>
+                        <label for="deductions" class="block text-sm font-medium text-gray-700">Deductions</label>
+                        <input type="number" id="deductions" class="mt-1 p-2 w-full border rounded" />
+                    </div>
+                </div>
+                <div>
+                    <label for="tax-regime" class="block text-sm font-medium text-gray-700">Select Tax Regime</label>
+                    <select id="tax-regime" class="mt-1 p-2 w-full border rounded">
+                        <option value="old">Old Tax Regime (with Deductions)</option>
+                        <option value="new">New Tax Regime (No Deductions)</option>
+                    </select>
+                </div>
+                <button id="calculate-tax-button" type="button" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded">Calculate Tax</button>
+            </form>
+            <p id="tax-section" class="mt-4 text-lg font-semibold text-gray-700">Tax Payable: ₹0 </p>
+        </section>
+
+        <button id="pay-tax" class="mt-4 bg-green-600 text-white px-4 py-2 rounded">
+            Pay Tax
+        </button>
+        
+
+        <!-- Bill Reminder Section -->
+        <section class="bg-white shadow-md rounded-lg p-6">
+            <h2 class="text-lg font-semibold mb-4">Bill Reminders</h2>
+            <form id="add-bill-form">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div>
+                        <label for="bill-name" class="block text-sm font-medium text-gray-700">Bill Name</label>
+                        <input type="text" id="bill-name" class="mt-1 p-2 w-full border rounded" required>
+                    </div>
+                    <div>
+                        <label for="amount" class="block text-sm font-medium text-gray-700">Amount</label>
+                        <input type="number" id="amount" class="mt-1 p-2 w-full border rounded" required>
+                    </div>
+                    <div>
+                        <label for="due-date" class="block text-sm font-medium text-gray-700">Due Date</label>
+                        <input type="date" id="due-date" class="mt-1 p-2 w-full border rounded" required>
+                    </div>
+                </div>
+                <button type="submit" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded">Add Reminder</button>
+            </form>
+            <ul id="reminder-list" class="mt-4 divide-y divide-gray-200">
+                <li class="py-2 text-gray-500">No reminders yet.</li>
+            </ul>
+        </section>
+
+        <!-- Spending Chart Section -->
         <section class="bg-white shadow-md rounded-lg p-6">
             <h2 class="text-lg font-semibold mb-4">Spending Chart</h2>
             <canvas id="spending-chart"></canvas>
         </section>
 
-        <!-- Transactions Section -->
-        <section class="bg-white shadow-md rounded-lg p-6">
-            <h2 class="text-lg font-semibold mb-4">Recent Transactions</h2>
-            <ul id="transaction-list" class="divide-y divide-gray-200">
-                <li class="py-2 text-gray-500">No transactions yet.</li>
-            </ul>
-        </section>
     </main>
+       
 
-    <!-- Footer -->
     <footer class="bg-gray-800 text-white text-center py-4">
         <p>&copy; 2024 FinTech Simplified</p>
     </footer>
 
-    <!-- Firebase Scripts -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <script type="module" src="dashboard.js"></script>
+   
 </body>
 </html>

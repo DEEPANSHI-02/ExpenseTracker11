@@ -79,7 +79,7 @@ if (document.getElementById("register-form")) {
   });
 }
 
-// **Logout Functionality (if any page requires it)**
+// **Logout
 if (document.getElementById("logout-button")) {
   document.getElementById("logout-button").addEventListener("click", async () => {
     try {
