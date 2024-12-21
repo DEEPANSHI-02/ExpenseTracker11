@@ -1,14 +1,14 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js";
 import { getFirestore, collection, addDoc, getDocs, query, orderBy, limit, where } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
-import { firebaseConfig } from "./firebase-config.js"; // Import your Firebase config
+import { firebaseConfig } from "./firebase-config.js"; 
 
-// Initialize Firebase
+
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// Redirect User Based on Auth State
+//  Auth State
 onAuthStateChanged(auth, (user) => {
   if (user) {
     console.log("User logged in:", user.email);
@@ -16,15 +16,15 @@ onAuthStateChanged(auth, (user) => {
     checkForReminders(user.uid);
   } else {
     console.log("No user logged in.");
-    window.location.href = "index.html"; // Redirect to login if not logged in
+    window.location.href = "index.html"; 
   }
 });
 
-// Load Dashboard Data
+// Dashboard 
 async function loadDashboardData(uid) {
   try {
     const financesRef = collection(db, "users", uid, "finances");
-    const q = query(financesRef, orderBy("timestamp", "desc"), limit(1)); // Get latest finance data
+    const q = query(financesRef, orderBy("timestamp", "desc"), limit(1)); 
     const querySnapshot = await getDocs(q);
 
     let latestFinances = null;
@@ -65,7 +65,7 @@ function resetForm() {
   document.getElementById("expenses").value = 0;
 }
 
-// Handle Finance Management Form Submission
+
 document.getElementById("manage-finances-form").addEventListener("submit", async (e) => {
   e.preventDefault();
 

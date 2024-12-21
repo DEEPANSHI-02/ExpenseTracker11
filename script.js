@@ -2,11 +2,11 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebas
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js";
 import { firebaseConfig } from './firebase-config.js';
 
-// Initialize Firebase
+
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-// Helper functions for message display
+
 function showMessage(elementId, message, type = "loading") {
   const element = document.getElementById(elementId);
   element.style.display = "block";
@@ -19,20 +19,20 @@ function hideMessage(elementId) {
   element.style.display = "none";
 }
 
-// Auth state change listener
-// onAuthStateChanged(auth, (user) => {
-//   if (user) {
-//     if (window.location.pathname === "/index.html" || window.location.pathname === "/register.html") {
-//       window.location.href = "dashboard.html"; // Redirect to dashboard if logged in
-//     }
-//   } else {
-//     if (window.location.pathname !== "/index.html" && window.location.pathname !== "/register.html") {
-//       window.location.href = "index.html"; // Redirect to login page if not logged in
-//     }
-//   }
-// });
+// Auth state 
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    if (window.location.pathname === "/index.html" || window.location.pathname === "/register.html") {
+      window.location.href = "dashboard.html"; 
+    }
+  } else {
+    if (window.location.pathname !== "/index.html" && window.location.pathname !== "/register.html") {
+      window.location.href = "index.html"; 
+    }
+  }
+});
 
-// **Login Functionality**
+// Login 
 if (document.getElementById("login-form")) {
   document.getElementById("login-form").addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -43,7 +43,7 @@ if (document.getElementById("login-form")) {
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      window.location.href = "dashboard.html"; // Redirect to dashboard after login
+      window.location.href = "dashboard.html"; 
     } catch (error) {
       showMessage("login-error", `Error: ${error.message}`, "error");
     } finally {
@@ -52,7 +52,7 @@ if (document.getElementById("login-form")) {
   });
 }
 
-// **Register Functionality**
+// Register 
 if (document.getElementById("register-form")) {
   document.getElementById("register-form").addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -70,7 +70,7 @@ if (document.getElementById("register-form")) {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       alert("Registration successful! You can now log in.");
-      window.location.href = "index.html"; // Redirect to login after registration
+      window.location.href = "index.html"; 
     } catch (error) {
       showMessage("register-error", `Error: ${error.message}`, "error");
     } finally {
@@ -79,13 +79,13 @@ if (document.getElementById("register-form")) {
   });
 }
 
-// **Logout
+// Logout
 if (document.getElementById("logout-button")) {
   document.getElementById("logout-button").addEventListener("click", async () => {
     try {
       await signOut(auth);
       alert("Logged out successfully!");
-      window.location.href = "index.html"; // Redirect to login page after logout
+      window.location.href = "index.html";
     } catch (error) {
       alert(`Error logging out: ${error.message}`);
     }
